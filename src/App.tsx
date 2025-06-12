@@ -1,9 +1,7 @@
 import './App.css'
-import CardPreview from './components/card-preview'
-import PaymentOptionsScreen from './components/payment-options-screen'
+import PaymentOptionsScreen from './components/payment-methods'
 
 function App() {
-
   return (
     <PaymentOptionsScreen />
   )
