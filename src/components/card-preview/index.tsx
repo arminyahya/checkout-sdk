@@ -13,11 +13,11 @@ export default function CardPreview({ fullName, cardNumber, expirationDate }: Ca
             <img width={30} height={15} src="/sim-icon.png"></img>
                 <div className="flex gap-2 font-bold text-left">
                     {cardNumber.match(/.{1,4}/g)?.map(fourDigit => <div>{fourDigit}</div>)}
-
                 </div>
-                <div className="text-sm mt-5 text-left">{expirationDate}</div>
+                <div className="flex gap-4 mt-5 text-left">
+                    <div className="text-sm">{expirationDate}</div>
+                </div>
             </div>
         </div>
     )
-
 }
