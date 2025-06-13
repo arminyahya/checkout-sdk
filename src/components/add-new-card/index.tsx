@@ -8,7 +8,11 @@ interface CardFormData {
   expirationDate: string;
 }
 
-export const AddNewCard: React.FC = () => {
+interface AddNewCardProps {
+  onAddCard: (card: CardFormData) => void;
+}
+
+export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard }) => {
   const [formData, setFormData] = useState<CardFormData>({
     cardNumber: '',
     cardName: '',
@@ -26,12 +30,18 @@ export const AddNewCard: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    onAddCard(formData);
+    // Reset form after submission
+    setFormData({
+      cardNumber: '',
+      cardName: '',
+      cvv: '',
+      expirationDate: '',
+    });
   };
 
   return (
-    <div className="max-w-[500px] mx-auto p-8">
+    <div className="max-w-[500px] mx-auto">
       <div className="mb-8">
         <CardPreview
           cardNumber={formData.cardNumber}
