@@ -1,9 +1,9 @@
 import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import CardPreview from '../card-preview';
-import { ErrorMessage } from '../ui/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cardFormSchema, type CardFormData } from './schema';
+import { FormInput } from '../ui/form-input';
 
 interface AddNewCardProps {
   onAddCard: (card: CardFormData) => void;
@@ -53,125 +53,58 @@ export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard }) => {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-        <div className="flex flex-col gap-2">
-          <label htmlFor="cardNumber" className="text-sm font-medium text-gray-700 text-left">
-            Card Number <span className="text-red-500">*</span>
-          </label>
-          <Controller
-            name="cardNumber"
-            control={control}
-            rules={{
-              required: 'Card number is required',
-              pattern: {
-                value: /^(\d{4}\s){3}\d{4}$/,
-                message: 'Invalid card number format',
-              },
-            }}
-            render={({ field, fieldState: { error } }) => (
-              <>
-                <input
-                  {...field}
-                  type="text"
-                  id="cardNumber"
-                  onChange={handleCardNumberChange}
-                  placeholder="1234 5678 9012 3456"
-                  maxLength={19}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                />
-                <ErrorMessage message={error?.message} />
-              </>
-            )}
-          />
-        </div>
+        <FormInput
+          name="cardNumber"
+          control={control}
+          label="Card Number"
+          placeholder="1234 5678 9012 3456"
+          maxLength={19}
+          required
+          pattern={{
+            value: /^(\d{4}\s){3}\d{4}$/,
+            message: 'Invalid card number format',
+          }}
+          onChange={handleCardNumberChange}
+        />
 
-        <div className="flex flex-col gap-2">
-          <label htmlFor="cardName" className="text-sm font-medium text-gray-700 text-left">
-            Card Holder <span className="text-red-500">*</span>
-          </label>
-          <Controller
-            name="cardName"
-            control={control}
-            rules={{
-              required: 'Card holder name is required',
-              pattern: {
-                value: /^[a-zA-Z\s]*$/,
-                message: 'Only letters and spaces are allowed',
-              },
-            }}
-            render={({ field, fieldState: { error } }) => (
-              <>
-                <input
-                  {...field}
-                  type="text"
-                  id="cardName"
-                  placeholder="John Doe"
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                />
-                <ErrorMessage message={error?.message} />
-              </>
-            )}
-          />
-        </div>
+        <FormInput
+          name="cardName"
+          control={control}
+          label="Card Holder"
+          placeholder="John Doe"
+          required
+          pattern={{
+            value: /^[a-zA-Z\s]*$/,
+            message: 'Only letters and spaces are allowed',
+          }}
+        />
 
-        <div className="flex flex-col gap-2">
-          <label htmlFor="expirationDate" className="text-sm font-medium text-gray-700 text-left">
-            Expiration Date <span className="text-red-500">*</span>
-          </label>
-          <Controller
-            name="expirationDate"
-            control={control}
-            rules={{
-              required: 'Expiration date is required',
-              pattern: {
-                value: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
-                message: 'Invalid date format (MM/YY)',
-              },
-            }}
-            render={({ field, fieldState: { error } }) => (
-              <>
-                <input
-                  {...field}
-                  type="text"
-                  id="expirationDate"
-                  placeholder="MM/YY"
-                  maxLength={5}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                />
-                <ErrorMessage message={error?.message} />
-              </>
-            )}
-          />
-        </div>
+        <FormInput
+          name="expirationDate"
+          control={control}
+          label="Expiration Date"
+          placeholder="MM/YY"
+          maxLength={5}
+          required
+          pattern={{
+            value: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
+            message: 'Invalid date format (MM/YY)',
+          }}
+        />
 
-        <div className="flex flex-col gap-2">
-          <label htmlFor="cvv" className="text-sm font-medium text-gray-700 text-left">
-            CVV <span className="text-red-500">*</span>
-          </label>
-          <Controller
-            name="cvv"
-            control={control}
-            rules={{
-              required: 'CVV is required',
-              pattern: {
-                value: /^[0-9]{3}$/,
-                message: 'CVV must be 3 digits',
-              },
-            }}
-            render={({ field, fieldState: { error } }) => (
-              <>
-                <input
-                  {...field}
-                  type="password"
-                  id="cvv"
-                  placeholder="123"
-                  maxLength={3}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                />
-                <ErrorMessage message={error?.message} />
-              </>
-            )}
-          />
-        </div>
+        <FormInput
+          name="cvv"
+          control={control}
+          label="CVV"
+          type="password"
+          placeholder="123"
+          maxLength={3}
+          required
+          pattern={{
+            value: /^[0-9]{3}$/,
+            message: 'CVV must be 3 digits',
+          }}
+        />
 
         <button
           type="submit"
