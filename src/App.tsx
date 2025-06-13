@@ -4,6 +4,15 @@ import { useState } from 'react'
 import PaymentMethods from './components/payment-methods'
 import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
 import Header from './components/header'
+import { ThemeProvider } from './theme/ThemeProvider'
+
+const customTheme = {
+  colors: {
+    primary: '#36a5ad', // This will be set as a CSS variable
+    secondary: '#00FF00',
+  },
+  // ... other theme properties
+};
 
 interface Card {
   cardNumber: string;
@@ -42,10 +51,9 @@ function AppContent() {
     <div className="flex flex-col gap-8 max-w-[500px] w-full p-4 md:p-8">
       <Header title={getHeaderTitle()} />
       <Routes>
-        <Route path="/payment-methods"  index element={<PaymentMethods cards={cards} />} />
+        <Route path="/payment-methods" index element={<PaymentMethods cards={cards} />} />
         <Route path="/add-card" element={<AddNewCard onAddCard={addCard} />} />
         <Route path="*" element={<Navigate to="/payment-methods" replace />} />
-
       </Routes>
     </div>
   )
@@ -53,9 +61,12 @@ function AppContent() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <ThemeProvider theme={customTheme}>
+
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 
