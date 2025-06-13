@@ -19,16 +19,13 @@ interface Card {
   expirationDate: string;
 }
 
-function AppContent() {
+function AppContent({initialCards = []}: {initialCards?: Card[]}) {
+ 
   useLayoutEffect(() => {
     setTheme(customTheme)
   }, []);
-  const [cards, setCards] = useState<Card[]>([{
-    cardNumber: '4111 1111 1111 1111',
-    cardName: 'John Doe',
-    cvv: '123',
-    expirationDate: '12/25'
-  }]);
+ 
+  const [cards, setCards] = useState<Card[]>(initialCards);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -60,10 +57,10 @@ function AppContent() {
   )
 }
 
-function App() {
+function App({initialCards}: {initialCards?: Card[]}) {
   return (
     <BrowserRouter>
-      <AppContent />
+      <AppContent initialCards={initialCards} />
     </BrowserRouter>
   )
 }
