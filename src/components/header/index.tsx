@@ -11,10 +11,9 @@ export default function Header({ title = '' }: HeaderProps) {
         <div className="flex items-center gap-4">
             <button 
                 onClick={() => navigate(-1)}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors outline-none border-none"
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors outline-none border-none cursor-pointer"
             >
                 <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
                     width="24" 
                     height="24" 
                     viewBox="0 0 24 24" 
@@ -27,7 +26,7 @@ export default function Header({ title = '' }: HeaderProps) {
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
             </button>
-            <div className="text-2xl font-bold text-left bg-primary">{title}</div>
+            <div className="text-2xl font-bold text-left">{title}</div>
         </div>
     );
 } 

@@ -1,17 +1,15 @@
 import './App.css'
 import { AddNewCard } from './components/add-new-card'
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import PaymentMethods from './components/payment-methods'
 import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
 import Header from './components/header'
-import { ThemeProvider } from './theme/ThemeProvider'
+import { setTheme } from './theme'
 
 const customTheme = {
   colors: {
-    primary: '#36a5ad', // This will be set as a CSS variable
-    secondary: '#00FF00',
+    primary: '#36a5ad',
   },
-  // ... other theme properties
 };
 
 interface Card {
@@ -22,6 +20,9 @@ interface Card {
 }
 
 function AppContent() {
+  useLayoutEffect(() => {
+    setTheme(customTheme)
+  }, []);
   const [cards, setCards] = useState<Card[]>([{
     cardNumber: '4111 1111 1111 1111',
     cardName: 'John Doe',
@@ -44,7 +45,7 @@ function AppContent() {
 
   const addCard = (card: Card) => {
     setCards(prevCards => [...prevCards, card]);
-    navigate('/'); // Navigate back to payment options after adding card
+    navigate('/');
   };
 
   return (
@@ -61,12 +62,9 @@ function AppContent() {
 
 function App() {
   return (
-    <ThemeProvider theme={customTheme}>
-
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   )
 }
 
