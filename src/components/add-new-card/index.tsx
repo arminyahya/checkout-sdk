@@ -40,7 +40,7 @@ export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard }) => {
   };
 
   return (
-    <div className="max-w-[500px] mx-auto">
+    <div className="max-w-[500px] mx-auto" data-testid="add-new-card">
       <div className="mb-8">
         <CardPreview
           cardNumber={cardNumber.split(' ').join('')}
@@ -104,6 +104,7 @@ export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard }) => {
         />
 
         <button
+          role='submit'
           type="submit"
           className="bg-[#1e9591] text-white px-6 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-[#1e9591] focus:ring-offset-2 transition-colors border border-[#1e9591] hover:bg-[#1e9591]/80"
         >
