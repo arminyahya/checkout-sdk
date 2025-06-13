@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import CardPreview from '../card-preview';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cardFormSchema, type CardFormData } from './schema';
-import { FormInput } from '../ui/form-input';
+import { FormInput } from '../../kit/form-input';
 
 interface AddNewCardProps {
   onAddCard: (card: CardFormData) => void;
@@ -26,16 +26,13 @@ export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard }) => {
 
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    // Remove all non-digit characters
     const digitsOnly = value.replace(/\D/g, '');
-    // Group digits by 4 and join with spaces
     const formattedValue = digitsOnly.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
     setValue('cardNumber', formattedValue);
   };
 
   const onSubmit = (data: CardFormData) => {
     onAddCard(data);
-    // Reset form after submission
     setValue('cardNumber', '');
     setValue('cardName', '');
     setValue('cvv', '');

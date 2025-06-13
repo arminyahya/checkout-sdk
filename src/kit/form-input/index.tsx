@@ -1,6 +1,6 @@
 import React from 'react';
 import { type Control, Controller, type FieldValues, type Path } from 'react-hook-form';
-import { ErrorMessage } from './error-message';
+import { ErrorMessage } from '../error-message';
 
 interface FormInputProps<T extends FieldValues> {
   name: Path<T>;
