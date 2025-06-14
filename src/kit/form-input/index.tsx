@@ -1,63 +1,51 @@
 import React from 'react';
-import { type Control, Controller, type FieldValues, type Path } from 'react-hook-form';
-import { ErrorMessage } from '../error-message';
 
-interface FormInputProps<T extends FieldValues> {
-  name: Path<T>;
-  control: Control<T>;
+interface FormInputProps {
+  name: string;
   label: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: string;
   maxLength?: number;
   required?: boolean;
-  pattern?: {
-    value: RegExp;
-    message: string;
-  };
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
 
-export const FormInput = <T extends FieldValues>({
+export const FormInput: React.FC<FormInputProps> = ({
   name,
-  control,
   label,
+  value,
+  onChange,
   placeholder,
   type = 'text',
   maxLength,
-  required = false,
-  pattern,
-  onChange,
-}: FormInputProps<T>) => {
+  required,
+  error,
+}) => {
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={name} className="text-sm font-medium text-gray-700 text-left">
-        {label} {required && <span className="text-red-500">*</span>}
+    <div className="flex flex-col gap-1">
+      <label htmlFor={name} className="font-medium">
+        {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
       </label>
-      <Controller
+      <input
+        id={name}
         name={name}
-        control={control}
-        rules={{
-          required: required ? `${label} is required` : false,
-          pattern,
-        }}
-        render={({ field, fieldState: { error } }) => (
-          <>
-            <input
-              {...field}
-              type={type}
-              id={name}
-              onChange={(e) => {
-                field.onChange(e);
-                onChange?.(e);
-              }}
-              placeholder={placeholder}
-              maxLength={maxLength}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-            />
-            <ErrorMessage message={error?.message} />
-          </>
-        )}
+        type={type}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        value={value}
+        onChange={onChange}
+        className={`border rounded-md px-3 py-2 focus:outline-none focus:ring-2 ${
+          error ? 'border-red-500 focus:ring-red-300' : 'border-gray-300 focus:ring-blue-300'
+        }`}
       />
+      {error && (
+        <p className="text-sm text-error text-left" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   );
-};  
+};
