@@ -1,10 +1,8 @@
-import './App.css'
-import { AddNewCard } from './components/add-new-card'
-import { useLayoutEffect, useState } from 'react'
-import PaymentMethods from './components/payment-methods'
-import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
-import Header from './components/header'
-import { setTheme } from './theme'
+import { AddNewCard } from './components/add-new-card';
+import { useLayoutEffect, useState } from 'react';
+import PaymentMethods from './components/payment-methods';
+import Header from './components/header';
+import { setTheme } from './theme';
 
 const customTheme = {
   colors: {
@@ -19,21 +17,21 @@ interface Card {
   expirationDate: string;
 }
 
-function AppContent({initialCards = []}: {initialCards?: Card[]}) {
- 
+type View = 'payment-methods' | 'add-card';
+
+function App({ initialCards = [] }: { initialCards?: Card[] }) {
   useLayoutEffect(() => {
-    setTheme(customTheme)
+    setTheme(customTheme);
   }, []);
- 
+
   const [cards, setCards] = useState<Card[]>(initialCards);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [currentView, setCurrentView] = useState<View>('payment-methods');
 
   const getHeaderTitle = () => {
-    switch (location.pathname) {
-      case '/':
+    switch (currentView) {
+      case 'payment-methods':
         return 'Payment Methods';
-      case '/add-card':
+      case 'add-card':
         return 'Add New Card';
       default:
         return 'Payment Methods';
@@ -42,27 +40,22 @@ function AppContent({initialCards = []}: {initialCards?: Card[]}) {
 
   const addCard = (card: Card) => {
     setCards(prevCards => [...prevCards, card]);
-    navigate('/');
+    setCurrentView('payment-methods');
   };
 
   return (
     <div className="flex flex-col gap-8 max-w-[500px] w-full p-4 md:p-8">
-      <Header title={getHeaderTitle()} />
-      <Routes>
-        <Route path="/payment-methods" index element={<PaymentMethods cards={cards} />} />
-        <Route path="/add-card" element={<AddNewCard onAddCard={addCard} />} />
-        <Route path="*" element={<Navigate to="/payment-methods" replace />} />
-      </Routes>
+      <Header
+        title={getHeaderTitle()}
+        onBack={currentView === 'add-card' ? () => setCurrentView('payment-methods') : undefined}
+
+      />
+      {currentView === 'payment-methods' && (
+        <PaymentMethods cards={cards} onAddCardClick={() => setCurrentView('add-card')} />
+      )}
+      {currentView === 'add-card' && <AddNewCard onAddCard={addCard} />}
     </div>
-  )
+  );
 }
 
-function App({initialCards}: {initialCards?: Card[]}) {
-  return (
-    <BrowserRouter>
-      <AppContent initialCards={initialCards} />
-    </BrowserRouter>
-  )
-}
-
-export default App
+export default App;

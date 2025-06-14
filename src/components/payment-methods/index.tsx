@@ -1,7 +1,6 @@
 import AddNewCardBox from "../add-new-card-box";
 import CardPreview from "../card-preview";
 import OtherPaymentMethods from "../other-payment-methods";
-import { useNavigate } from 'react-router-dom';
 
 interface Card {
     cardNumber: string;
@@ -12,14 +11,10 @@ interface Card {
 
 interface PaymentMethodsProps {
     cards: Card[];
+    onAddCardClick: () => void;
 }
 
-export default function PaymentMethods({ cards }: PaymentMethodsProps) {
-    const navigate = useNavigate();
-
-    const handleAddNewCard = () => {
-        navigate('/add-card');
-    };
+export default function PaymentMethods({ cards, onAddCardClick }: PaymentMethodsProps) {
 
     return (
         <div className='w-full flex flex-col gap-5'>
@@ -38,7 +33,7 @@ export default function PaymentMethods({ cards }: PaymentMethodsProps) {
                     </div>
                 </div>
 
-                <div onClick={handleAddNewCard}>
+                <div onClick={onAddCardClick}>
                     <AddNewCardBox />
                 </div>
             </div>
