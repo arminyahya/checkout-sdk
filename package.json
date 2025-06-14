@@ -3,9 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "types": "dist/types/App.d.ts",
+  "main": "dist/index.es.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:types": "tsc --build tsconfig.types.json",
+    "prepublishOnly": "yarn build:types",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
