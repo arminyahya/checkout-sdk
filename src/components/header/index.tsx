@@ -8,7 +8,7 @@ export default function Header({ onBack, title = '' }: HeaderProps) {
         <div className="flex items-center gap-4">
             <button
                 onClick={onBack}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors outline-none border-none cursor-pointer"
+                className="hover:bg-gray-100 rounded-full transition-colors outline-none border-none cursor-pointer"
             >
                 <svg
                     width="24"
