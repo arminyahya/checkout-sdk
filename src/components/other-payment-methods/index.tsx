@@ -1,3 +1,4 @@
+import CachIcon from "../../icons/cash";
 import OtherPaymentMethodsItem from "./item";
 
 export default function OtherPaymentMethods() {
@@ -7,7 +8,7 @@ export default function OtherPaymentMethods() {
                 Other Payment Methods
             </div>
             <div className="flex flex-row gap-3">
-                <OtherPaymentMethodsItem title="Cash On Delivery" description="Pay In Cash" img="/cash-icon.png" />
+                <OtherPaymentMethodsItem title="Cash On Delivery" description="Pay In Cash" icon={<CachIcon width={40} height={40}/>} />
             </div>
         </div>
     )
