@@ -23,6 +23,6 @@ test('loads and displays initial cards', () => {
 test('display add new card form when clicking on button', async () => {
   render(<App />)
   
-  await userEvent.click(screen.getByText('Add New Card'))
+  await userEvent.click(screen.getByText('Add Card'))
   expect(screen.getByTestId('add-new-card')).toBeInTheDocument()
 })

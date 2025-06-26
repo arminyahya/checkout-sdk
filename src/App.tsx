@@ -44,12 +44,12 @@ function App({ initialCards = [] }: { initialCards?: Card[] }) {
   };
 
   return (
-    <div className="flex flex-col gap-8 max-w-[500px] w-full p-4 md:p-8">
+    <div className="flex flex-col gap-8 w-full p-4 md:p-8">
       <Header
         title={getHeaderTitle()}
         onBack={currentView === 'add-card' ? () => setCurrentView('payment-methods') : undefined}
-
       />
+      
       {currentView === 'payment-methods' && (
         <PaymentMethods cards={cards} onAddCardClick={() => setCurrentView('add-card')} />
       )}

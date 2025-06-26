@@ -80,7 +80,7 @@ export const AddNewCard: React.FC<AddNewCardProps> = ({ onAddCard }) => {
   };
 
   return (
-    <div className="max-w-[500px] mx-auto" data-testid="add-new-card">
+    <div data-testid="add-new-card">
       <div className="mb-8">
         <CardPreview
           cardNumber={formData.cardNumber.replace(/\s/g, '')}
