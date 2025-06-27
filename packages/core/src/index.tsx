@@ -3,7 +3,6 @@ import { useLayoutEffect, useState } from 'react';
 import PaymentMethods from './components/payment-methods';
 import Header from './components/header';
 import { setTheme } from './theme';
-
 const customTheme = {
   colors: {
     primary: '#36a5ad',

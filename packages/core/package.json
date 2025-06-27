@@ -1,14 +1,23 @@
 {
-  "name": "checkout-sdk",
-  "private": true,
+  "name": "@armin-lab/checkout-sdk",
+  "private": false,
   "version": "0.0.0",
   "type": "module",
-  "types": "dist/types/App.d.ts",
-  "main": "dist/index.es.js",
+  "exports": {
+    ".": {
+      "default": "./dist/index.es.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./index.css": "./dist/index.css"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "build:types": "tsc --build tsconfig.types.json",
+    "build:css": "npx @tailwindcss/cli -m -i ./src/index.css -o ./dist/index.css",
     "prepublishOnly": "yarn build:types",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -20,10 +29,11 @@
     "@tailwindcss/vite": "^4.1.10",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.6.1",
+    "concurrently": "^9.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "rollup-plugin-visualizer": "^6.0.3",
-    "tailwindcss": "^4.1.10",
+    "tailwindcss": "^4.1.11",
     "vitest": "^3.2.3"
   },
   "devDependencies": {
